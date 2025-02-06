@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hydrate</title>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css" integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-Fy6S3B9q64WdZWQUiU+q4/2Lc9npb8tCaSX9FK7E8HnRr0Jz8D6OP9dO5Vg3Q9ct" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Markazi+Text:wght@400..700&family=Spicy+Rice&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <script src="./script.js"></script>
+  </head>
+<body>
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-dark sticky-top">
+      <div class="container-fluid">
+        <!-- Left Dropdown Menu -->
+        <div class="dropdown">
+          <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
+            <img src="./assets/images/solar--user-broken.png" alt="" height="30px" width="26px">
+          </button>
+          <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+            <li><a class="dropdown-item" href="./login.html">Sign In</a></li>
+            <li><a class="dropdown-item" href="./Profile.php">Profile</a></li>
+            <li><a class="dropdown-item" href="#">Sign Out</a></li>
+          </ul>
+        </div>
+  
+        <!-- Center Logo -->
+        <a class="navbar-brand" href="./index.html">
+          <img src="./assets/images/hydrate-high-resolution-logo.png" alt="Hydrate Logo">
+        </a>
+  
+        <!-- Toggle Button for Smaller Screens -->
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+  
+        <!-- Right Navbar Links (collapsible) -->
+        <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
+          <div class="navbar-nav">
+            <a class="nav-link" href="./index.html#about">About Us</a>
+            <a class="nav-link active" href="./flavours.html">Flavours</a>
+            <a class="nav-link" href="./products.html">Products</a>
+            <a class="nav-link" href="./contact_us.html">Contact Us</a>
+            <a class="nav-link" href="./products.html">Cart</a>
+          </div>
+        </div>
+      </div>
+    </nav>
+
+  <!--hero-->
+    <div class="hero">
+        <div class="hero-text" style="bottom: auto; max-width: 100%;">
+            <br><br><br><br><br><br><br><br><br><br><br>
+        <h1 class="text-white fw-bold display-2 display-lg-3 display-md-4 display-sm-5 text-wrap">Explore the flavours!</h1>
+        <h5 class="text-white lead fs-4 fs-lg-5 fs-md-6 fs-sm-6 text-wrap">Discover the taste of freshness with our organic juices. At Hydrate, we blend locally sourced fruits to create nutrient-packed beverages that cater to every dietary need. Visit us today and find your perfect blend! </h5>
+        <br><br><br><br><br><br><br><br><br><br><br>
+        </div>
+    </div>
+
+    <!--Orange-->
+    <section >
+    <div class="d-flex fruitsvideo justify-content-center align-items-center text-center position-relative">
+      <!-- Background Video -->
+      <video autoplay muted loop id="backgroundVideo">
+         <source src="assets/videos/fruitsvideo.mp4" type="video/mp4">
+         Your browser does not support the video tag.
+      </video>
+
+     <!-- Overlay Text -->
+     <div class="d-flex flex-column justify-content-center align-items-center text-center position-absolute start-50 translate-middle w-75 w-md-50 w-sm-75 p-3 video-overlay">
+      <h1 class="flavor-title text-black fw-bold display-3 display-md-4 display-sm-5">Orange</h1>
+      <h5 class="flavor-text ext-white fs-4 fs-md-5 fs-sm-6">Our orange juice is made from the freshest oranges, sourced from local farmers. It is rich in Vitamin C and antioxidants, making it the perfect drink to start your day with. </h5>
+      <br>
+      <button type="button" class="btn btn-light btn-lg btn-md btn-sm mt-3 exploreBtn">Explore more</button>
+    </div>
+  </section>
+
+      <!--Chocolate-->
+      <section>
+        <div class="vanilla d-flex flex-column justify-content-center align-items-center text-center">
+          <!--Overlay Text-->
+          <div class="vanilla-overlay">
+            <br><br><br><br><br>
+            <h1 class="flavor-title">Vanilla</h1>
+            <h5 class="flavor-text">Our lemon juice is made from the finest lemons, sourced from local farmers. It is rich in Vitamin C and antioxidants, making it the perfect drink to start your day with. </h5>       
+            <br>
+            <button type="button" class="btn btn-light exploreBtn">Explore more</button>
+            <br><br><br><br><br>
+          </div>
+        </div>
+      </section>
+
+    <!--Vanilla-->
+    <section>
+    <div class="vanilla d-flex flex-column justify-content-center align-items-center text-center">
+      <!--Overlay Text-->
+      <div class="vanilla-overlay">
+        <br><br><br><br><br>
+        <h1 class="flavor-title">Vanilla</h1>
+        <h5 class="flavor-text">Our lemon juice is made from the finest lemons, sourced from local farmers. It is rich in Vitamin C and antioxidants, making it the perfect drink to start your day with. </h5>       
+        <br>
+        <button type="button" class="btn btn-light exploreBtn">Explore more</button>
+        <br><br><br><br><br>
+      </div>
+    </div>
+  </section>
+
+      <!--Strawberry-->
+      <section>
+        <div class="strawberry">
+          <!--Overlay Text-->
+          <div class="strawberry-overlay">
+            <br><br><br><br><br>
+            <h1 class="flavor-title">Strawberry</h1>
+            <h5 class="flavor-text">Lorem ipsum dolor sit amet consectetur adipisicing elit. Beatae, laboriosam aliquid veritatis rem eius unde sequi sapiente nisi. Quasi modi unde sint soluta aperiam distinctio quaerat optio provident voluptatem deserunt. </h5>       
+            <br>
+            <button type="button" class="btn btn-light exploreBtn">Explore more</button>
+            <br><br><br><br><br>
+          </div>
+        </div>
+      </section>
+
+    
+  <!-- Footer -->
+  <footer class="text-center">
+    <small>&copy; 2025 | Hydrate</small>
+    
+  </footer>
+    
+</body>
+</html>

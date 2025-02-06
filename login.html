@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hydrate</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css" integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-Fy6S3B9q64WdZWQUiU+q4/2Lc9npb8tCaSX9FK7E8HnRr0Jz8D6OP9dO5Vg3Q9ct" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Markazi+Text:wght@400..700&family=Spicy+Rice&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    
+<script type="text/javascript">
+    function toggleForm(view) {
+        let formTitle = document.getElementById('formTitle');
+        let emailGroup = document.getElementById('emailGroup');
+        let passwordGroup = document.getElementById('passwordGroup');
+        let confirmPasswordGroup = document.getElementById('confirmPasswordGroup');
+        let usernameGroup = document.getElementById('usernameGroup');
+        let phoneGroup = document.getElementById('phoneGroup');
+        let formButton = document.getElementById('formButton');
+        let toggleText = document.getElementById('toggleText');
+        let forgotPasswordText = document.getElementById('forgotPasswordText');
+        let verifyCodeGroup = document.getElementById('verifyCodeGroup');
+        let changePasswordGroup = document.getElementById('changePasswordGroup');
+
+        if (view === 'forgot') {
+            formTitle.innerText = 'Forgot Password';
+            passwordGroup.style.display = 'none';
+            confirmPasswordGroup.style.display = 'none';
+            usernameGroup.style.display = 'none';
+            phoneGroup.style.display = 'none';
+            formButton.innerText = 'Reset Password';
+            formButton.classList.remove('btn-primary');
+            formButton.classList.add('btn-warning');
+            toggleText.innerText = 'Back to Sign In';
+            forgotPasswordText.style.display = 'none';
+            toggleText.setAttribute('onclick', "toggleForm('signin')");
+            formButton.setAttribute('onclick', "toggleForm('verify')");
+        } else if (view === 'signup') {
+            formTitle.innerText = 'Create Account';
+            passwordGroup.style.display = 'block';
+            confirmPasswordGroup.style.display = 'block';
+            usernameGroup.style.display = 'block';
+            phoneGroup.style.display = 'block';
+            formButton.innerText = 'Sign Up';
+            formButton.classList.remove('btn-primary');
+            formButton.classList.add('btn-success');
+            formButton.setAttribute('formaction', 'signupHandler.php');
+            toggleText.innerText = 'Back to Sign In';
+            forgotPasswordText.style.display = 'none';
+            toggleText.setAttribute('onclick', "toggleForm('signin')");
+        } else if (view === 'verify') {
+            formTitle.innerText = 'Enter Verification Code';
+            verifyCodeGroup.style.display = 'block';
+            changePasswordGroup.style.display = 'none';
+            emailGroup.style.display = 'none';
+            formButton.innerText = 'Continue';
+            formButton.classList.remove('btn-warning');
+            formButton.classList.add('btn-info');
+            toggleText.innerText = 'Back to Sign In';
+            toggleText.setAttribute('onclick', "toggleForm('signin')");
+            formButton.setAttribute('onclick', "toggleForm('changePassword')");
+        } else if (view === 'changePassword') {
+            formTitle.innerText = 'Change Password';
+            verifyCodeGroup.style.display = 'none';
+            changePasswordGroup.style.display = 'block';
+            confirmPasswordGroup.style.display = 'block';
+            formButton.innerText = 'Change Password';
+            formButton.classList.remove('btn-info');
+            formButton.classList.add('btn-primary');
+            toggleText.innerText = 'Back to Sign In';
+            formButton.setAttribute('onclick', "toggleForm('signin')");
+        } else {
+            formTitle.innerText = 'Sign In';
+            passwordGroup.style.display = 'block';
+            confirmPasswordGroup.style.display = 'none';
+            usernameGroup.style.display = 'none';
+            phoneGroup.style.display = 'none';
+            formButton.innerText = 'Sign In';
+            formButton.classList.remove('btn-success');
+            formButton.classList.add('btn-primary');
+            formButton.setAttribute('formaction', 'loginHandler.php');
+            toggleText.innerText = 'Create Account';
+            forgotPasswordText.style.display = 'block';
+            toggleText.setAttribute('onclick', "toggleForm('signup')");
+        }
+    }
+
+    function validateForm() {
+        const email = document.getElementById("email").value;
+        const emailPattern = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6}$/;
+        if (!emailPattern.test(email)) {
+            alert("Please enter a valid email.");
+            return false;
+        }
+
+        const password = document.getElementById("password").value;
+        const passwordPattern = /^(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*])[A-Za-z\d!@#$%^&*]{8,12}$/;
+        if (!passwordPattern.test(password)) {
+            alert("Password must be between 8 to 12 characters and contain at least one uppercase letter, one number, and one special character.");
+            return false;
+        }
+
+        const confirmPassword = document.getElementById("confirmPassword").value;
+        if (confirmPassword && password !== confirmPassword) {
+            alert("Passwords do not match.");
+            return false;
+        }
+
+        const phone = document.getElementById("phoneNumber").value;
+        const phonePattern = /^\d{10}$/;
+        if (phone && !phonePattern.test(phone)) {
+            alert("Please enter a valid 10-digit phone number.");
+            return false;
+        }
+
+        return true;
+    }
+
+</script>
+
+
+    <style>
+        body {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            min-height: 100vh;
+            padding-top: 70px; /* To prevent content from hiding behind navbar */
+            background-image: url('./assets/images/landingpage.png');            
+            background-size: cover; 
+            background-position: center;
+            background-repeat: no-repeat;
+        }
+
+
+
+        .form-container {
+            background: rgba(255, 255, 255, 0.7);
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+            width: 100%;
+            max-width: 400px;
+            text-align: center;
+            margin-top: 4%;
+            align-items: center;
+            margin-bottom: 3%;
+
+
+        }
+
+        .form-title {
+            font-family: 'Cursive', sans-serif;
+            font-size: 24px;
+            font-weight: bold;
+        }
+
+        .navbar{
+            position: fixed;
+            width: 100%;
+        }
+
+        .btn:hover {
+            color: white;
+        }
+    </style>
+
+    </head>
+    <body>
+        <!-- Navbar -->
+  <nav class="navbar navbar-expand-lg navbar-dark sticky-top">
+    <div class="container-fluid">
+      <!-- Left Dropdown Menu -->
+      <div class="dropdown">
+        <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
+          <img src="./assets/images/solar--user-broken.png" alt="" height="30px" width="26px">
+        </button>
+        <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+          <li><a class="dropdown-item" href="./login.html">Sign In</a></li>
+          <li><a class="dropdown-item" href="./Profile.php">Profile</a></li>
+          <li><a class="dropdown-item" href="#">Sign Out</a></li>
+        </ul>
+      </div>
+
+      <!-- Center Logo -->
+      <a class="navbar-brand" href="./index.html">
+        <img src="./assets/images/hydrate-high-resolution-logo.png" alt="Hydrate Logo">
+      </a>
+
+      <!-- Toggle Button for Smaller Screens -->
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+
+      <!-- Right Navbar Links (collapsible) -->
+      <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
+        <div class="navbar-nav">
+          <a class="nav-link" href="./index.html#about">About Us</a>
+          <a class="nav-link" href="./flavours.html">Flavours</a>
+          <a class="nav-link" href="./products.html">Products</a>
+          <a class="nav-link" href="./contact_us.html">Contact Us</a>
+          <a class="nav-link" href="./products.html">Cart</a>
+        </div>
+      </div>
+    </div>
+  </nav>
+
+<!-- Login Form -->
+<div class="form-container">
+    <h3 class="form-title">Hydrate</h3>
+    <p>Welcome to Hydrate Juice Bar!</p>
+    <form id="formContent" action="loginHandler.php" method="post" onsubmit="return validateForm()">
+        <h5 id="formTitle">Sign In</h5>
+        <div class="mb-3" id="usernameGroup" style="display: none;">
+            <input type="text" class="form-control" placeholder="Username" id="username" name="username">
+        </div>
+        <div class="mb-3" id="emailGroup">
+            <input type="email" class="form-control" placeholder="Email" id="email" name="email" required>
+        </div>
+        <div class="mb-3" id="phoneGroup" style="display: none;">
+            <input type="text" class="form-control" placeholder="Phone Number" name="phoneNumber" id="phoneNumber">
+        </div>
+        <div class="mb-3" id="passwordGroup">
+            <input type="password" class="form-control" placeholder="Password" id="password" name="password" required>
+        </div>
+        <div class="mb-3" id="changePasswordGroup" style="display: none;">
+            <input type="password" class="form-control" placeholder="New Password" name="changePassword" id="changePassword">
+        </div>
+        <div class="mb-3" id="confirmPasswordGroup" style="display: none;">
+            <input type="password" class="form-control" placeholder="Confirm Password" name="confirmPassword" id="confirmPassword">
+        </div>
+        <div class="mb-3" id="verifyCodeGroup" style="display: none;">
+            <input type="text" class="form-control" placeholder="Enter Verification Code" name="verificationCode" id="verificationCode">
+        </div>
+        
+        <p class="text-end" id="forgotPasswordText">
+            <a href="#" class="textmuted" onclick="toggleForm('forgot')">Forgot password?</a>
+        </p>
+        <button type="submit" class="btn btn-primary w-100" id="formButton">Sign In</button>
+        <hr>
+        <button type="button" class="btn btn-light w-100">
+            <img src="https://img.icons8.com/color/16/000000/google-logo.png"> Sign in with Google
+        </button>
+        <p class="mt-3">
+            New Account? <a href="#" id="toggleText" onclick="toggleForm('signup')">Create Account</a>
+        </p>
+    </form>
+</div>
+
+<!-- Footer -->
+<footer class="text-center bottom-0 w-100" style="position: fixed;">
+    <small>&copy; 2025 | Hydrate</small>
+    
+</footer>
+
+
+</body>
+</html>

@@ -1,0 +1,354 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Hydrate</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css" integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-Fy6S3B9q64WdZWQUiU+q4/2Lc9npb8tCaSX9FK7E8HnRr0Jz8D6OP9dO5Vg3Q9ct" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Markazi+Text:wght@400..700&family=Spicy+Rice&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <script src="./script.js"></script>
+
+    <script>
+        function loadCart() {
+            let cart = JSON.parse(localStorage.getItem('cart')) || [];
+            let cartContainer = document.getElementById('cartItems');
+            let orderSummary = document.getElementById('orderSummary');
+
+            cartContainer.innerHTML = "";
+            orderSummary.innerHTML = "";
+
+            let totalPrice = 0;
+            let summaryHTML = "";
+
+            let cartCountHTML = `<h5 class="fw-bold">Cart Items (${cart.length})</h5><hr>`;
+            cartContainer.innerHTML += cartCountHTML;
+
+            cart.forEach((item, index) => {
+                let itemTotalPrice = (item.price * item.quantity) + (item.toppingsPrice * item.quantity);
+                totalPrice += itemTotalPrice;
+
+                cartContainer.innerHTML += `
+                    <div class="cart-item d-flex align-items-center p-2 position-relative">
+                        <input type="checkbox" checked class="me-2 item-checkbox" data-index="${index}" data-name="${item.name}" data-price="${itemTotalPrice}" data-quantity="${item.quantity}">
+                        <img src="${item.image}" alt="${item.name}" class="img-thumbnail" width="80">
+                        <div class="ms-3 flex-grow-1">
+                            <h6 class="fw-bold">${item.name}</h6>
+                            <p class="text-muted small">Toppings: ${item.toppings} (${item.toppingsPrice * item.quantity} Rs.)</p>
+                            <p class="text-muted small">Quantity: ${item.quantity}</p>
+                            <p class="text-danger fw-bold">Rs.${itemTotalPrice.toFixed(2)}</p>
+                        </div>
+                        <button class="btn btn-danger btn-sm remove-btn" onclick="removeFromCart(${index})">Remove</button>
+                    </div>`;
+
+                summaryHTML += `
+                    <div class="summary-item d-flex justify-content-between" data-index="${index}">
+                        <p class="m-0">${item.name} (${item.quantity})</p>
+                        <p class="m-0 text-danger fw-bold">Rs.${itemTotalPrice.toFixed(2)}</p>
+                    </div>`;
+            });
+
+            if (cart.length === 0) {
+                cartContainer.innerHTML = `<p class="text-center text-muted">Your cart is empty.</p>`;
+                orderSummary.innerHTML = `<p class="text-center text-muted">No items selected.</p>`;
+            } else {
+                orderSummary.innerHTML = `
+                    <h5 class="text-center fw-bold">Order Summary</h5>
+                    <hr>
+                    <div id="summaryContent">${summaryHTML}</div>
+                    <hr>
+                    <h5 class="fw-bold d-flex justify-content-between">
+                        Total: <span class="text-danger" id="totalPrice">Rs.${totalPrice.toFixed(2)}</span>
+                    </h5>
+                    <button class="btn btn-dark w-100 mt-3" data-bs-toggle="modal" data-bs-target="#paymentModal">Checkout Now</button>`;
+            }
+
+            document.querySelectorAll(".item-checkbox").forEach(checkbox => {
+                checkbox.addEventListener("change", updateOrderSummary);
+            });
+        }
+
+        function removeFromCart(index) {
+            let cart = JSON.parse(localStorage.getItem('cart')) || [];
+            cart.splice(index, 1);
+            localStorage.setItem('cart', JSON.stringify(cart));
+            loadCart();
+        }
+
+        function updateOrderSummary() {
+            let checkboxes = document.querySelectorAll(".item-checkbox");
+            let totalPrice = 0;
+            let totalItems = 0;
+            let summaryContent = document.getElementById("summaryContent");
+
+            checkboxes.forEach(checkbox => {
+                let index = checkbox.getAttribute("data-index");
+                let itemName = checkbox.getAttribute("data-name");
+                let itemPrice = parseFloat(checkbox.getAttribute("data-price"));
+                let itemQuantity = parseInt(checkbox.getAttribute("data-quantity"));
+
+                if (checkbox.checked) {
+                    totalPrice += itemPrice;
+                    totalItems += itemQuantity;
+
+                    if (!document.querySelector(`.summary-item[data-index='${index}']`)) {
+                        summaryContent.innerHTML += `
+                            <div class="summary-item d-flex justify-content-between" data-index="${index}">
+                                <p class="m-0">${itemName} (${itemQuantity})</p>
+                                <p class="m-0 text-danger fw-bold">Rs.${itemPrice.toFixed(2)}</p>
+                            </div>`;
+                    }
+                } else {
+                    let itemToRemove = document.querySelector(`.summary-item[data-index='${index}']`);
+                    if (itemToRemove) {
+                        itemToRemove.remove();
+                    }
+                }
+            });
+
+            document.getElementById("totalPrice").textContent = `Rs.${totalPrice.toFixed(2)}`;
+            document.title = `Cart (${totalItems} items) - Add your favourites`;
+        }
+
+        function handlePaymentMethodChange() {
+            const paymentMethod = document.getElementById('paymentMethod').value;
+            const cardDetails = document.getElementById('cardDetails');
+            const appDetails = document.getElementById('appDetails');
+
+            // Hide all details by default
+            cardDetails.style.display = 'none';
+            appDetails.style.display = 'none';
+
+            if (paymentMethod === 'card') {
+                cardDetails.style.display = 'block';
+            } else if (paymentMethod === 'app') {
+                appDetails.style.display = 'block';
+            }
+        }
+
+        function makePayment() {
+            let cart = JSON.parse(localStorage.getItem('cart')) || [];
+            let checkboxes = document.querySelectorAll(".item-checkbox");
+            let itemsToRemove = [];
+
+            checkboxes.forEach(checkbox => {
+                if (checkbox.checked) {
+                    itemsToRemove.push(checkbox.getAttribute("data-index"));
+                }
+            });
+
+            if (itemsToRemove.length === 0) {
+                alert('Please select an item to checkout.');
+                return;
+            }
+
+            itemsToRemove.forEach(index => {
+                cart.splice(index, 1);
+            });
+
+            localStorage.setItem('cart', JSON.stringify(cart));
+            alert('Payment Successful!');
+            loadCart();
+        }
+
+        window.onload = loadCart;
+    </script>
+
+    <style>
+        body {
+            background: linear-gradient(135deg,  #e0f2ff, #CAD1CD, #BCC4BD);
+            background-repeat: no-repeat;
+            font-family: 'Arial', sans-serif;
+            padding-top: 0;
+            margin: 0%;
+            background-attachment: fixed;
+        }
+        .cart-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+        }
+        .order-summary {
+            width: 30%;
+            background-color: #f8fcd5;
+            padding: 15px;
+            border-radius: 10px;
+            box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.1);
+        }
+        .card {
+            background-color: #f8fcd5;
+            margin-top: 0%;
+            margin-left: 2%;
+            padding: 15px;
+            border-radius: 10px;
+            box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.1);
+        }
+        .btn-dark {
+            background: #1d3379;
+            border: none;
+        }
+        .cart-item {
+            display: flex;
+            align-items: center;
+            border-bottom: 1px solid #ddd;
+            padding: 10px;
+            margin-bottom: 5px;
+        }
+        .cart-item img {
+            border-radius: 8px;
+        }
+        .remove-btn {
+            position: absolute;
+            bottom: 10px;
+            right: 10px;
+            font-size: 12px;
+        }
+        .cart-item img {
+            width: 150px; 
+            height: auto; 
+            border-radius: 10px;
+        }
+
+        h2, h5 {
+            margin-top: 15px;
+            color: #000000;
+            font-family: 'Arial', sans-serif;
+        }
+
+        /* Modal */
+        .modal-content {
+            padding: 20px;
+        }
+
+        /* Payment Method */
+        #cardDetails, #appDetails {
+            display: none;
+        }
+
+        footer{
+            position: fixed;
+        }
+    </style> 
+</head>
+<body>
+  <!-- Navbar -->
+  <nav class="navbar navbar-expand-lg navbar-dark sticky-top">
+    <div class="container-fluid">
+      <!-- Left Dropdown Menu -->
+      <div class="dropdown">
+        <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
+          <img src="./assets/images/solar--user-broken.png" alt="" height="30px" width="26px">
+        </button>
+        <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+          <li><a class="dropdown-item" href="./login.html">Sign In</a></li>
+          <li><a class="dropdown-item" href="./Profile.php">Profile</a></li>
+          <li><a class="dropdown-item" href="#">Sign Out</a></li>
+        </ul>
+      </div>
+
+      <!-- Center Logo -->
+      <a class="navbar-brand" href="./index.html">
+        <img src="./assets/images/hydrate-high-resolution-logo.png" alt="Hydrate Logo">
+      </a>
+
+      <!-- Toggle Button for Smaller Screens -->
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+
+      <!-- Right Navbar Links (collapsible) -->
+      <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
+        <div class="navbar-nav">
+          <a class="nav-link" href="./index.html#about">About Us</a>
+          <a class="nav-link" href="./flavours.html">Flavours</a>
+          <a class="nav-link" href="./products.html">Products</a>
+          <a class="nav-link" href="./contact_us.html">Contact Us</a>
+          <a class="nav-link active" href="./products.html">Cart</a>
+        </div>
+      </div>
+    </div>
+  </nav>
+
+    <div class="container">
+        
+        
+        <h2 class="text-center mb-4">Shopping Cart</h2>
+        <div class="container mt-4 cart-container">
+            <div class="card p-3" style="width: 65%">
+                <div id="cartItems"></div>
+            </div>
+
+            <div class="order-summary" id="orderSummary"></div>
+        </div>
+    </div>
+
+    <!-- Payment Modal -->
+    <div class="modal fade" id="paymentModal" tabindex="-1" aria-labelledby="paymentModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="paymentModalLabel">Payment Method</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form>
+                        <div class="mb-3">
+                            <label for="paymentMethod" class="form-label">Select Payment Method</label>
+                            <select class="form-select" id="paymentMethod" onchange="handlePaymentMethodChange()">
+                                <option value="cod">Cash on Delivery</option>
+                                <option value="card">Card Payment</option>
+                                <option value="app">App Payment (PayPal, Coco)</option>
+                            </select>
+                        </div>
+
+                        <!-- Card Payment Details -->
+                        <div id="cardDetails">
+                            <div class="mb-3">
+                                <label for="cardNumber" class="form-label">Card Number</label>
+                                <input type="text" class="form-control" id="cardNumber" placeholder="XXXX-XXXX-XXXX-XXXX">
+                            </div>
+                            <div class="mb-3">
+                                <label for="cardName" class="form-label">Cardholder Name</label>
+                                <input type="text" class="form-control" id="cardName" placeholder="Cardholder's Name">
+                            </div>
+                            <div class="mb-3">
+                                <label for="expiryDate" class="form-label">Expiry Date</label>
+                                <input type="month" class="form-control" id="expiryDate">
+                            </div>
+                            <div class="mb-3">
+                                <label for="cvv" class="form-label">CVV</label>
+                                <input type="text" class="form-control" id="cvv" placeholder="XXX">
+                            </div>
+                        </div>
+
+                        <!-- App Payment Details -->
+                        <div id="appDetails">
+                            <div class="mb-3">
+                                <label for="appChoice" class="form-label">Select App</label>
+                                <select class="form-select" id="appChoice">
+                                    <option value="paypal">PayPal</option>
+                                    <option value="coco">CocoPay</option>
+                                </select>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+          <!-- Footer -->
+  <footer class="text-center bottom-0 w-100">
+    <small>&copy; 2025 | Hydrate</small>
+    
+  </footer>
+</body>
+</html>

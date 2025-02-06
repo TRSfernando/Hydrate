@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hydrate</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css" integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-Fy6S3B9q64WdZWQUiU+q4/2Lc9npb8tCaSX9FK7E8HnRr0Jz8D6OP9dO5Vg3Q9ct" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Markazi+Text:wght@400..700&family=Spicy+Rice&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <script src="./script.js"></script>
+  </head>
+<body class="contact_us_body">
+  <!-- Navbar -->
+  <nav class="navbar navbar-expand-lg navbar-dark sticky-top">
+    <div class="container-fluid">
+      <!-- Left Dropdown Menu -->
+      <div class="dropdown">
+        <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
+          <img src="./assets/images/solar--user-broken.png" alt="" height="30px" width="26px">
+        </button>
+        <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+          <li><a class="dropdown-item" href="./login.html">Sign In</a></li>
+          <li><a class="dropdown-item" href="./Profile.php">Profile</a></li>
+          <li><a class="dropdown-item" href="#">Sign Out</a></li>
+        </ul>
+      </div>
+
+      <!-- Center Logo -->
+      <a class="navbar-brand" href="./index.html">
+        <img src="./assets/images/hydrate-high-resolution-logo.png" alt="Hydrate Logo">
+      </a>
+
+      <!-- Toggle Button for Smaller Screens -->
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+
+      <!-- Right Navbar Links (collapsible) -->
+      <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
+        <div class="navbar-nav">
+          <a class="nav-link" href="./index.html#about">About Us</a>
+          <a class="nav-link" href="./flavours.html">Flavours</a>
+          <a class="nav-link" href="./products.html">Products</a>
+          <a class="nav-link active" href="./contact_us.html">Contact Us</a>
+          <a class="nav-link" href="./products.html">Cart</a>
+        </div>
+      </div>
+    </div>
+  </nav>
+
+  <!--contact us body-->
+  <div class="contact_us_body">
+    <div class="row contact_us_row">
+        <div class="col-md-6">
+          <div class="row">
+            <div id="card1" class="col-md-5 card">
+              <div class="content">
+                <h2 class="title" style="margin-top: -10px;">Call Us</h2>
+                <svg xmlns="http://www.w3.org/2000/svg" width="50" height="50" viewBox="0 0 24 24">
+                  <path fill="#fff" d="m16.1 13.359l-.528-.532zm.456-.453l.529.532zm2.417-.317l-.358.66zm1.91 1.039l-.358.659zm.539 3.255l.529.532zm-1.42 1.412l-.53-.531zm-1.326.67l.07.747zm-9.86-4.238l.528-.532zM4.002 5.746l-.749.042zm6.474 1.451l.53.532zm.157-2.654l.6-.449zM9.374 2.86l-.601.45zM6.26 2.575l.53.532zm-1.57 1.56l-.528-.531zm7.372 7.362l.529-.532zm4.567 2.394l.455-.453l-1.058-1.064l-.455.453zm1.985-.643l1.91 1.039l.716-1.318l-1.91-1.038zm2.278 3.103l-1.42 1.413l1.057 1.063l1.42-1.412zm-2.286 1.867c-1.45.136-5.201.015-9.263-4.023l-1.057 1.063c4.432 4.407 8.65 4.623 10.459 4.454zm-9.263-4.023c-3.871-3.85-4.512-7.087-4.592-8.492l-1.498.085c.1 1.768.895 5.356 5.033 9.47zm1.376-6.18l.286-.286L9.95 6.666l-.287.285zm.515-3.921L9.974 2.41l-1.201.899l1.26 1.684zM5.733 2.043l-1.57 1.56l1.058 1.064l1.57-1.56zm4.458 5.44c-.53-.532-.53-.532-.53-.53h-.002l-.003.004a1 1 0 0 0-.127.157c-.054.08-.113.185-.163.318a2.1 2.1 0 0 0-.088 1.071c.134.865.73 2.008 2.256 3.526l1.058-1.064c-1.429-1.42-1.769-2.284-1.832-2.692c-.03-.194.001-.29.01-.312q.009-.02 0-.006a.3.3 0 0 1-.03.039l-.01.01l-.01.009zm1.343 4.546c1.527 1.518 2.676 2.11 3.542 2.242c.443.068.8.014 1.071-.087a1.5 1.5 0 0 0 .42-.236l.05-.045l.007-.006l.003-.003l.001-.002s.002-.001-.527-.533c-.53-.532-.528-.533-.528-.533l.002-.002l.002-.002l.006-.005l.01-.01l.038-.03q.014-.009-.007.002c-.025.009-.123.04-.32.01c-.414-.064-1.284-.404-2.712-1.824zm-1.56-9.62C8.954 1.049 6.95.834 5.733 2.044L6.79 3.107c.532-.529 1.476-.475 1.983.202zM4.752 5.704c-.02-.346.139-.708.469-1.036L4.163 3.604c-.537.534-.96 1.29-.909 2.184zm14.72 12.06c-.274.274-.57.428-.865.455l.139 1.494c.735-.069 1.336-.44 1.784-.885zM11.006 7.73c.985-.979 1.058-2.527.229-3.635l-1.201.899c.403.539.343 1.246-.085 1.673zm9.52 6.558c.817.444.944 1.49.367 2.064l1.058 1.064c1.34-1.333.927-3.557-.71-4.446zm-3.441-.849c.384-.382 1.002-.476 1.53-.19l.716-1.317c-1.084-.59-2.428-.427-3.304.443z" />
+                </svg>
+                <p class="copy">Call us at <br> 0757922488 <br> 0779811166</p>
+              </div>
+            </div>
+            <div id="card2" class="col-md-5 card">
+              <div class="content">
+                <h2 class="title" style="margin-top: 1px;">Email Us</h2>
+                <svg xmlns="http://www.w3.org/2000/svg" width="50" height="50" viewBox="0 0 24 24">
+                  <g fill="none">
+                    <path fill="#fff" d="M3 5v-.75a.75.75 0 0 0-.75.75zm18 0h.75a.75.75 0 0 0-.75-.75zM3 5.75h18v-1.5H3zM20.25 5v12h1.5V5zM19 18.25H5v1.5h14zM3.75 17V5h-1.5v12zM5 18.25c-.69 0-1.25-.56-1.25-1.25h-1.5A2.75 2.75 0 0 0 5 19.75zM20.25 17c0 .69-.56 1.25-1.25 1.25v1.5A2.75 2.75 0 0 0 21.75 17z" />
+                    <path stroke="#fff" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="m3 5l9 9l9-9" />
+                  </g>
+                </svg>
+                <p class="copy">Email us at <br>hydrate@gmail.com</p>
+              </div>
+            </div>
+          </div>
+          
+          <div class="row">
+            <div id="card3" class="col-md-5 card">
+              <div class="content">
+                <h2 class="title" style="margin-top: -15px;">Our Location</h2>
+                <svg class="title" xmlns="http://www.w3.org/2000/svg" width="50" height="50" viewBox="0 0 24 24"><g fill="#fff" fill-rule="evenodd" clip-rule="evenodd"><path d="M7.25 10a4.75 4.75 0 1 1 9.5 0a4.75 4.75 0 0 1-9.5 0M12 6.75a3.25 3.25 0 1 0 0 6.5a3.25 3.25 0 0 0 0-6.5"/><path d="M3.524 8.857a8.29 8.29 0 0 1 8.26-7.607h.432a8.29 8.29 0 0 1 8.26 7.607a8.94 8.94 0 0 1-1.99 6.396l-4.793 5.861a2.187 2.187 0 0 1-3.386 0l-4.793-5.861a8.94 8.94 0 0 1-1.99-6.396m8.26-6.107A6.79 6.79 0 0 0 5.02 8.98a7.44 7.44 0 0 0 1.656 5.323l4.793 5.862a.687.687 0 0 0 1.064 0l4.793-5.862A7.44 7.44 0 0 0 18.98 8.98a6.79 6.79 0 0 0-6.765-6.23z"/></g></svg>
+
+                <p style="line-height: -100px;" class="copy">321, Peace Street, <br>Colombo</p>
+                <br><br>
+              </div>
+            </div>
+            <div id="card4" class="col-md-5 card">
+              <div class="content">
+                <h2 class="title" style="margin-top: 18px;">Fax Us</h2>
+                <svg xmlns="http://www.w3.org/2000/svg" width="60" height="60" viewBox="0 0 24 24">
+                  <path fill="#fff" d="M5 20.5q-1.042 0-1.77-.73q-.73-.728-.73-1.77v-7q0-1.042.73-1.77Q3.957 8.5 5 8.5q.617 0 1.132.275t.882.725H8.5V6.462q0-.667.475-1.141t1.14-.475h5.77q.666 0 1.14.475t.475 1.14V9.5H19q1.042 0 1.77.73q.73.728.73 1.77v5.885q0 .666-.475 1.14t-1.14.475H7.013q-.367.45-.881.725T5 20.5m0-1q.617 0 1.059-.441Q6.5 18.617 6.5 18v-7q0-.617-.441-1.059Q5.617 9.5 5 9.5t-1.059.441Q3.5 10.383 3.5 11v7q0 .617.441 1.059q.442.441 1.059.441m4.5-10h7V6.462q0-.27-.173-.443t-.442-.173h-5.77q-.269 0-.442.173t-.173.443zm-2 9h12.385q.269 0 .442-.173t.173-.442V12q0-.617-.441-1.059Q19.617 10.5 19 10.5H7.5zM15 14q.425 0 .713-.288T16 13t-.288-.712T15 12t-.712.288T14 13t.288.713T15 14m3 0q.425 0 .713-.288T19 13t-.288-.712T18 12t-.712.288T17 13t.288.713T18 14m-3 3q.425 0 .713-.288T16 16t-.288-.712T15 15t-.712.288T14 16t.288.713T15 17m3 0q.425 0 .713-.288T19 16t-.288-.712T18 15t-.712.288T17 16t.288.713T18 17m-8.192 0h2.384q.344 0 .576-.232t.232-.576v-3.384q0-.344-.232-.576T12.192 12H9.808q-.343 0-.576.232T9 12.808v3.384q0 .343.232.576t.576.232M7.5 18.5v-8z" />
+                </svg>
+                <p class="copy">Fax us at 011-229-3674</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+          
+          
+      <div class="col-md-5 contactForm">
+        <form action="">
+            <center>
+                <h3>Contact Us</h3>
+                    <br>
+                <input type="text" placeholder="Enter your name" class="form-control" required>
+                <br><br>
+                <input type="text" placeholder="Enter your email" class="form-control" required>
+                <br><br>
+                <textarea placeholder="Your message goes here..." class="form-control contact_us_message" rows="5" required></textarea>
+            </center>
+            <br>
+            <button type="button" class="btn btn-info clearbtn">Clear</button>
+            <button type="button" class="btn btn-info submitbtn">Submit</button>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <footer class="text-center mt-3 mb-3">
+    <hr>
+    <small>&copy; 2025 | Hydrate</small>
+  </footer>
+
+</body>
+</html>
